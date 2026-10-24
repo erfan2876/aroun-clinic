@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FBF8F4">
+  <meta name="description" content="کلینیک زیبایی آرون؛ زیبایی، هنرِ نور است. رویکردی دقیق، آرام و شخصی‌سازی‌شده برای مراقبت از پوست و زیبایی طبیعی شما.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="آرون | زیبایی، هنرِ نور است">
+  <meta property="og:description" content="زیبایی با نگاه علمی، هنری و متناسب با ویژگی‌های منحصربه‌فرد شما.">
+  <title>آرون | زیبایی، هنرِ نور است</title>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stage-2.css">
+  <link rel="stylesheet" href="css/stage-3.css">
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+
+  <!-- Version-pinned cinematic motion libraries. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" defer></script>
+
+  <!-- نسخهٔ Three.js ثابت شده؛ برای ES Modules سایت را با Live Server اجرا کنید. -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="aroun-page">
+  <a class="skip-link" href="#mainContent">رفتن به محتوای اصلی</a>
+
+  <!-- لودر: نشان SVG با مسیرهای قابل رسم و شمارنده درصد -->
+  <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="در حال آماده‌سازی تجربه آرون">
+    <div class="preloader__mark-wrap" aria-hidden="true">
+      <svg class="preloader__mark" viewBox="0 0 100 100" fill="none">
+        <path class="preloader__stroke" d="M18 72 43 22Q47 14 52 23L79 75" />
+        <path class="preloader__stroke preloader__stroke--fine" d="M32 57Q49 47 67 57" />
+        <ellipse class="preloader__stroke preloader__stroke--ellipse" cx="50" cy="50" rx="39" ry="46" transform="rotate(22 50 50)" />
+        <circle class="preloader__dot" cx="78" cy="24" r="2.3" />
+      </svg>
+    </div>
+    <p class="preloader__name">AROUN <span>CLINIC</span></p>
+    <div class="preloader__counter"><span id="preloaderNumber">۰</span><small>%</small></div>
+    <div class="preloader__track"><span id="preloaderBar"></span></div>
+    <p class="preloader__caption">زیبایی، هنرِ نور است</p>
+  </div>
+
+  <div class="cinematic-atmosphere" id="cinematicAtmosphere" aria-hidden="true"></div>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div class="pointer-light" id="pointerLight" aria-hidden="true"></div>
+  <div class="cursor-orb" id="cursorOrb" aria-hidden="true"><span id="cursorText"></span></div>
+  <div class="page-progress" id="pageProgress" aria-hidden="true"><span></span></div>
+
+  <header class="site-header" id="siteHeader">
+    <a href="#top" class="brand" aria-label="آرون، بازگشت به ابتدا">
+      <span class="brand__monogram" aria-hidden="true">آ</span>
+      <span class="brand__wordmark"><strong>آرون</strong><small>AROUN AESTHETIC CLINIC</small></span>
+    </a>
+
+    <p class="header-motto"><span></span> زیبایی، هنرِ نور است</p>
+
+    <nav class="header-nav" aria-label="ناوبری اصلی">
+      <a href="#process">فرایند مراجعه</a>
+      <a href="#services">خدمات</a>
+      <a href="#team">پزشکان</a>
+    </nav>
+
+    <a class="header-book magnetic" href="#booking" data-cursor="رزرو">
+      <span>رزرو مشاوره</span>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+
+    <button class="menu-button" id="menuButton" type="button" aria-label="باز کردن منو" aria-expanded="false" aria-controls="fullMenu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- منوی تمام‌صفحه در همین مرحله آماده است؛ لینک بخش‌های آینده بعداً تکمیل می‌شوند. -->
+  <nav class="full-menu" id="fullMenu" aria-label="منوی کامل سایت" aria-hidden="true" inert>
+    <div class="full-menu__wash"></div>
+    <div class="full-menu__content">
+      <p class="micro-label">A QUIETER KIND OF LUXURY</p>
+      <a href="#top" class="full-menu__link"><span>۰۱</span> آغاز</a>
+      <a href="#services" class="full-menu__link"><span>۰۲</span> خدمات</a>
+      <a href="#team" class="full-menu__link"><span>۰۳</span> پزشکان</a>
+      <a href="#gallery" class="full-menu__link"><span>۰۴</span> فضای آرون</a>
+      <a href="#faq" class="full-menu__link"><span>۰۵</span> پرسش‌های متداول</a>
+      <a href="#booking" class="full-menu__link"><span>۰۶</span> رزرو مشاوره</a>
+      <div class="full-menu__bottom"><span>تهران، خیابان ولیعصر</span><a href="tel:+982188888888">۰۲۱-۸۸۸۸۸۸۸۸</a></div>
+    </div>
+  </nav>
+
+  <main id="mainContent">
+    <!-- HERO / مرحلهٔ اول -->
+    <section class="hero" id="top" aria-labelledby="heroTitle">
+      <div class="hero__wash" aria-hidden="true"></div>
+      <div class="hero__sun-disc" aria-hidden="true"></div>
+      <div class="hero__fine-line hero__fine-line--one" aria-hidden="true"></div>
+      <div class="hero__fine-line hero__fine-line--two" aria-hidden="true"></div>
+      <div class="hero__grain-orbit" aria-hidden="true"></div>
+
+      <div class="hero__layout wrap">
+        <div class="hero__copy">
+          <p class="eyebrow hero__eyebrow"><span class="eyebrow__dash"></span> AROUN · AESTHETIC MEDICINE</p>
+          <h1 class="hero__title" id="heroTitle">
+            <span class="hero__title-line"><span>زیبایی،</span></span>
+            <span class="hero__title-line hero__title-line--accent"><span>هنرِ نور</span></span>
+            <span class="hero__title-line"><span>است.</span></span>
+          </h1>
+          <p class="hero__description">هر چهره، روایت منحصربه‌فرد خودش را دارد؛ ما با دانش پزشکی، نگاه هنری و توجه به جزئیات، کمک می‌کنیم نور طبیعی زیبایی شما بهتر دیده شود.</p>
+          <div class="hero__actions">
+            <a href="#booking" class="button button--primary magnetic" data-cursor="رزرو">
+              <span>رزرو مشاوره</span>
+              <span class="button__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <a href="#services" class="hero__secondary-link" data-cursor="ببین"><span class="hero__play" aria-hidden="true">↙</span><span>مرور خدمات آرون</span></a>
+          </div>
+
+          <div class="hero__trustline">
+            <span class="hero__trustline-mark" aria-hidden="true">✳</span>
+            <p><strong>۱۲ سال تجربه</strong><span>مراقبتی که با شناخت آغاز می‌شود.</span></p>
+          </div>
+        </div>
+
+        <div class="hero__visual" id="heroVisual" aria-label="تصویر ادیتوریال از مراقبت پوست، بافت سنگ طبیعی و نور گرم">
+          <div class="hero__image-arch" data-parallax="0.05">
+            <!-- عکس واقعی را با نام hero.jpg داخل assets/images قرار بده؛ در نبود آن گرادیان نمایش داده می‌شود. -->
+            <div class="hero__image-placeholder" role="img" aria-label="تصویر انتزاعی با نور گرم و بافت سنگ طبیعی"></div>
+            <div class="hero__image-wash"></div>
+            <div class="hero__image-caption"><span>FIG. 01</span><span>THE ART OF LIGHT</span></div>
+          </div>
+
+          <div class="hero__floating-note hero__floating-note--top" data-parallax="-0.08">
+            <span class="floating-note__index">A—01</span>
+            <span class="floating-note__text">زیبایی در تعادل<br>پیدا می‌شود.</span>
+          </div>
+          <div class="hero__floating-note hero__floating-note--bottom" data-parallax="0.1">
+            <span class="floating-note__symbol" aria-hidden="true">✧</span>
+            <span class="floating-note__text">دقیق، آرام،<br>متناسب با شما</span>
+          </div>
+          <span class="hero__vertical-caption" aria-hidden="true">SKIN IS A STORY — LIGHT IS THE LANGUAGE</span>
+        </div>
+      </div>
+
+      <div class="hero__bottom wrap">
+        <span class="hero__coordinates">۳۵° ۴۳′ N &nbsp; / &nbsp; ۵۱° ۲۵′ E</span>
+        <a class="hero__scroll-cue" href="#services"><span class="hero__scroll-line"></span><span>آرام به پایین بروید</span><span class="hero__scroll-arrow" aria-hidden="true">↓</span></a>
+        <span class="hero__edition">TEHRAN · EST. 2014</span>
+      </div>
+    </section>
+
+    <!-- خدمات افقی: در دسکتاپ با اسکرول عمودی حرکت افقی می‌کند. -->
+    <section class="services-section" id="services" data-scene="services" aria-labelledby="servicesTitle">
+      <div class="services-stage" id="servicesStage">
+        <div class="services-heading wrap">
+          <div class="services-heading__copy">
+            <p class="eyebrow" data-reveal-stage><span class="eyebrow__dash"></span> CARE, CURATED FOR YOU</p>
+            <h2 id="servicesTitle" data-reveal-stage>هر پوست، <em>یک زبان.</em><br>هر درمان، یک گفت‌وگو.</h2>
+          </div>
+          <div class="services-heading__aside" data-reveal-stage>
+            <p>از شناخت نیاز پوست تا انتخاب مسیر مناسب؛ تصمیم‌ها باید آگاهانه، واقع‌بینانه و متناسب با هر فرد باشند.</p>
+            <div class="services-heading__scroll"><span>برای مرور خدمات اسکرول کنید</span><i aria-hidden="true">←</i></div>
+          </div>
+        </div>
+
+        <div class="services-viewport" id="servicesViewport" aria-label="خدمات کلینیک آرون">
+          <div class="services-track" id="servicesTrack">
+
+            <article class="service-card service-card--skin" data-service-card data-service-tone="skin">
+              <div class="service-card__visual" data-photo="assets/images/service-skin.jpg" role="img" aria-label="تصویر مراقبت پوست">
+                <span class="service-card__visual-index">01 / SKIN</span>
+                <span class="service-card__visual-orbit" aria-hidden="true"></span>
+                <span class="service-card__visual-title">THE SKIN<br>RITUAL</span>
+              </div>
+              <div class="service-card__body">
+                <p class="service-card__kicker">SKIN HEALTH · REGENERATION</p>
+                <h3>مراقبت و جوانسازی پوست</h3>
+                <p>مسیر مراقبت با بررسی وضعیت پوست آغاز می‌شود؛ هدف، حمایت از سلامت پوست و انتخاب روشی متناسب با نیاز واقعی آن است.</p>
+                <a href="#treatment" class="service-card__link" data-cursor="کشف کن">شناخت مسیر مناسب <span aria-hidden="true">↙</span></a>
+              </div>
+              <span class="service-card__number" aria-hidden="true">01</span>
+            </article>
+
+            <article class="service-card service-card--laser" data-service-card data-service-tone="laser">
+              <div class="service-card__visual" data-photo="assets/images/service-laser.jpg" role="img" aria-label="تصویر خدمات لیزر">
+                <span class="service-card__visual-index">02 / LASER</span>
+                <span class="service-card__visual-orbit" aria-hidden="true"></span>
+                <span class="service-card__visual-title">LIGHT<br>PRECISION</span>
+              </div>
+              <div class="service-card__body">
+                <p class="service-card__kicker">LASER · PERSONALIZED SETTINGS</p>
+                <h3>لیزر موهای زائد</h3>
+                <p>انتخاب دستگاه، تنظیمات و برنامهٔ جلسات باید با ارزیابی رنگ پوست، نوع مو و شرایط فردی انجام شود.</p>
+                <a href="#treatment" class="service-card__link" data-cursor="کشف کن">آشنایی با مسیر ارزیابی <span aria-hidden="true">↙</span></a>
+              </div>
+              <span class="service-card__number" aria-hidden="true">02</span>
+            </article>
+
+            <article class="service-card service-card--injectables" data-service-card data-service-tone="injectables">
+              <div class="service-card__visual" data-photo="assets/images/service-filler.jpg" role="img" aria-label="تصویر مراقبت زیبایی و فرم‌های مجسمه‌وار">
+                <span class="service-card__visual-index">03 / BALANCE</span>
+                <span class="service-card__visual-orbit" aria-hidden="true"></span>
+                <span class="service-card__visual-title">SUBTLE<br>HARMONY</span>
+              </div>
+              <div class="service-card__body">
+                <p class="service-card__kicker">FACIAL BALANCE · MEDICAL CONSULTATION</p>
+                <h3>فیلر و بوتاکس</h3>
+                <p>هر تصمیم باید پس از گفت‌وگوی پزشکی، بررسی تناسبات صورت و توضیح شفاف دربارهٔ مزایا و محدودیت‌ها گرفته شود.</p>
+                <a href="#treatment" class="service-card__link" data-cursor="کشف کن">شروع با مشاوره <span aria-hidden="true">↙</span></a>
+              </div>
+              <span class="service-card__number" aria-hidden="true">03</span>
+            </article>
+
+            <article class="service-card service-card--regeneration" data-service-card data-service-tone="regeneration">
+              <div class="service-card__visual" data-photo="assets/images/service-prp.jpg" role="img" aria-label="تصویر جزئیات مراقبت و بازسازی پوست">
+                <span class="service-card__visual-index">04 / RENEWAL</span>
+                <span class="service-card__visual-orbit" aria-hidden="true"></span>
+                <span class="service-card__visual-title">A NEW<br>CHAPTER</span>
+              </div>
+              <div class="service-card__body">
+                <p class="service-card__kicker">MESOTHERAPY · PRP</p>
+                <h3>مزوتراپی و PRP</h3>
+                <p>روش‌های بازسازی و مراقبت باید بر اساس سابقهٔ پزشکی، نیاز فرد و ارزیابی پزشک بررسی شوند؛ نتیجه برای همه یکسان نیست.</p>
+                <a href="#treatment" class="service-card__link" data-cursor="کشف کن">بررسی نیازهای پوست <span aria-hidden="true">↙</span></a>
+              </div>
+              <span class="service-card__number" aria-hidden="true">04</span>
+            </article>
+
+            <article class="service-card service-card--lifting" data-service-card data-service-tone="lifting">
+              <div class="service-card__visual" data-photo="assets/images/service-lifting.jpg" role="img" aria-label="تصویر خدمات لیفتینگ">
+                <span class="service-card__visual-index">05 / CONTOUR</span>
+                <span class="service-card__visual-orbit" aria-hidden="true"></span>
+                <span class="service-card__visual-title">FORM<br>& LIGHT</span>
+              </div>
+              <div class="service-card__body">
+                <p class="service-card__kicker">NON-SURGICAL · LIFTING</p>
+                <h3>لیفتینگ بدون جراحی</h3>
+                <p>شناخت ساختار پوست و گفت‌وگو دربارهٔ انتظارات واقع‌بینانه، نخستین قدم برای بررسی روش‌های غیرجراحی است.</p>
+                <a href="#treatment" class="service-card__link" data-cursor="کشف کن">شناخت گزینه‌ها <span aria-hidden="true">↙</span></a>
+              </div>
+              <span class="service-card__number" aria-hidden="true">05</span>
+            </article>
+
+            <article class="service-card service-card--hair" data-service-card data-service-tone="hair">
+              <div class="service-card__visual" data-photo="assets/images/service-hair.jpg" role="img" aria-label="تصویر مراقبت و ترمیم مو">
+                <span class="service-card__visual-index">06 / ROOTS</span>
+                <span class="service-card__visual-orbit" aria-hidden="true"></span>
+                <span class="service-card__visual-title">ROOTED<br>IN CARE</span>
+              </div>
+              <div class="service-card__body">
+                <p class="service-card__kicker">HAIR RESTORATION</p>
+                <h3>کاشت و ترمیم مو</h3>
+                <p>بررسی علت ریزش، بانک مو و شرایط سلامت فرد باید پیش از انتخاب هر مسیر درمانی یا جراحی انجام شود.</p>
+                <a href="#treatment" class="service-card__link" data-cursor="کشف کن">شروع ارزیابی اولیه <span aria-hidden="true">↙</span></a>
+              </div>
+              <span class="service-card__number" aria-hidden="true">06</span>
+            </article>
+
+          </div>
+        </div>
+
+        <div class="services-footer wrap">
+          <span>AROUN / SERVICE JOURNAL</span>
+          <div class="services-progress" aria-hidden="true"><span id="servicesProgressBar"></span></div>
+          <span>۰۱ — ۰۶</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- انتخاب‌گر مراقبت: پیشنهاد اولیه، نه تشخیص پزشکی -->
+    <section class="treatment-section" id="treatment" data-scene="treatment" aria-labelledby="treatmentTitle">
+      <div class="wrap treatment-layout">
+        <div class="treatment-intro" data-reveal-stage>
+          <p class="eyebrow"><span class="eyebrow__dash"></span> A MORE PERSONAL START</p>
+          <h2 id="treatmentTitle">از پوستت بگو؛<br><em>با دقت گوش می‌دهیم.</em></h2>
+          <p>چند انتخاب ساده کمک می‌کند موضوع گفت‌وگوی اولیه مشخص‌تر شود. نتیجهٔ این ابزار، تشخیص یا تجویز پزشکی نیست.</p>
+          <div class="treatment-note">
+            <span class="treatment-note__mark" aria-hidden="true">A.</span>
+            <p>هر پوست داستان خودش را دارد؛ انتخاب نهایی پس از ارزیابی حضوری پزشک انجام می‌شود.</p>
+          </div>
+        </div>
+
+        <div class="treatment-tool" id="treatmentTool">
+          <div class="treatment-tool__topline"><span>AROUN / SKIN DIALOGUE</span><span>STEP 01 — 02</span></div>
+
+          <fieldset class="treatment-question">
+            <legend><span>۰۱</span> کدام توصیف به پوست شما نزدیک‌تر است؟</legend>
+            <div class="treatment-choices" id="skinChoices">
+              <button type="button" class="treatment-choice is-selected" data-skin="dry" aria-pressed="true"><span class="treatment-choice__symbol">◌</span><span>خشک یا کم‌آب</span></button>
+              <button type="button" class="treatment-choice" data-skin="oily" aria-pressed="false"><span class="treatment-choice__symbol">◍</span><span>چرب</span></button>
+              <button type="button" class="treatment-choice" data-skin="combination" aria-pressed="false"><span class="treatment-choice__symbol">◐</span><span>مختلط</span></button>
+              <button type="button" class="treatment-choice" data-skin="sensitive" aria-pressed="false"><span class="treatment-choice__symbol">◎</span><span>حساس یا واکنش‌پذیر</span></button>
+            </div>
+          </fieldset>
+
+          <fieldset class="treatment-question">
+            <legend><span>۰۲</span> دوست دارید در مشاوره، روی چه موضوعی تمرکز کنیم؟</legend>
+            <div class="treatment-choices treatment-choices--concern" id="concernChoices">
+              <button type="button" class="treatment-choice is-selected" data-concern="hydration" aria-pressed="true">کم‌آبی و کدری</button>
+              <button type="button" class="treatment-choice" data-concern="texture" aria-pressed="false">بافت و منافذ</button>
+              <button type="button" class="treatment-choice" data-concern="tone" aria-pressed="false">لک و ناهماهنگی رنگ</button>
+              <button type="button" class="treatment-choice" data-concern="lines" aria-pressed="false">خطوط ظریف</button>
+              <button type="button" class="treatment-choice" data-concern="hair" aria-pressed="false">مو و پوست سر</button>
+            </div>
+          </fieldset>
+
+          <div class="treatment-result" id="treatmentResult" aria-live="polite" aria-atomic="true">
+            <span class="treatment-result__label">YOUR PERSONAL STARTING POINT</span>
+            <h3 id="treatmentResultTitle">ارزیابی رطوبت و سد دفاعی پوست</h3>
+            <p id="treatmentResultText">در گفت‌وگوی اولیه، وضعیت کم‌آبی، عادت‌های مراقبتی و تحمل‌پذیری پوست بررسی می‌شود تا دربارهٔ گزینه‌های مناسب صحبت کنیم.</p>
+            <a href="tel:+982188888888" class="treatment-result__link">گفت‌وگو با کلینیک <span aria-hidden="true">↗</span></a>
+          </div>
+
+          <p class="treatment-disclaimer">این پیشنهاد صرفاً راهنمای گفت‌وگو است؛ تشخیص، انتخاب روش و بررسی منع مصرف فقط بر عهدهٔ پزشک است.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- اسلایدر مقایسه؛ placeholderها نتیجهٔ واقعی درمان را نمایش نمی‌دهند. -->
+    <section class="comparison-section" id="comparison" data-scene="comparison" aria-labelledby="comparisonTitle">
+      <div class="wrap comparison-layout">
+        <div class="comparison-copy" data-reveal-stage>
+          <p class="eyebrow"><span class="eyebrow__dash"></span> DETAIL, NOT DRAMA</p>
+          <h2 id="comparisonTitle">تفاوت را<br><em>در جزئیات ببینید.</em></h2>
+          <p>این قاب برای مقایسهٔ تصویری طراحی شده است. تصاویر فعلی انتزاعی‌اند و نمونهٔ واقعی درمان نیستند.</p>
+          <div class="comparison-legend"><span><i class="comparison-legend__before"></i> پیش از درمان</span><span><i class="comparison-legend__after"></i> پس از درمان</span></div>
+        </div>
+
+        <div class="comparison-module" id="comparisonModule" data-reveal-stage>
+          <div class="comparison-visual" id="comparisonVisual" style="--compare-split: 50%">
+            <div class="comparison-layer comparison-layer--before" role="img" aria-label="جایگاه تصویر مستند پیش از درمان؛ placeholder انتزاعی">
+              <span class="comparison-layer__label">BEFORE / VISUAL EXAMPLE</span>
+              <span class="comparison-layer__note">تصویر قبل<br>در اینجا قرار می‌گیرد</span>
+            </div>
+
+            <div class="comparison-layer comparison-layer--after" role="img" aria-label="جایگاه تصویر مستند پس از درمان؛ placeholder انتزاعی">
+              <span class="comparison-layer__label">AFTER / VISUAL EXAMPLE</span>
+              <span class="comparison-layer__note">تصویر بعد<br>در اینجا قرار می‌گیرد</span>
+            </div>
+
+            <span class="comparison-handle" aria-hidden="true"><i></i><b>↔</b><i></i></span>
+            <span class="comparison-corner comparison-corner--tl" aria-hidden="true"></span>
+            <span class="comparison-corner comparison-corner--br" aria-hidden="true"></span>
+          </div>
+
+          <label class="comparison-control" for="comparisonRange">
+            <span>جابجایی برای مقایسه</span>
+            <input id="comparisonRange" type="range" min="8" max="92" value="50" step="1" aria-label="جابجایی خط مقایسهٔ قبل و بعد">
+            <span class="comparison-control__ends"><span>قبل</span><span>بعد</span></span>
+          </label>
+
+          <p class="comparison-disclaimer">پیش از انتشار، تصاویر مستند و دارای رضایت مراجع را با نور، زاویه و شرایط عکاسی مشابه جایگزین کنید.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- فرایند درمان: مسیر روشن و گام‌به‌گام -->
+    <section class="process-section" id="process" data-scene="process" aria-labelledby="processTitle">
+      <div class="wrap process-section__header">
+        <div data-reveal-stage>
+          <p class="eyebrow"><span class="eyebrow__dash"></span> A THOUGHTFUL PROCESS</p>
+          <h2 class="stage3-title" id="processTitle">آرامش از جایی آغاز می‌شود<br><em>که مسیر روشن است.</em></h2>
+        </div>
+        <p class="process-section__intro" data-reveal-stage>از اولین گفت‌وگو تا پیگیری پس از مراجعه، هر مرحله با توضیح روشن و فرصت کافی برای تصمیم‌گیری همراه است.</p>
+      </div>
+      <div class="wrap process-map" id="processMap">
+        <svg class="process-map__line" viewBox="0 0 100 680" preserveAspectRatio="none" aria-hidden="true">
+          <path class="process-map__path process-map__path--base" d="M50 0 C50 70 18 85 24 158 S78 255 54 333 S22 448 48 508 S70 620 50 680" />
+          <path class="process-map__path process-map__path--draw" id="processPath" d="M50 0 C50 70 18 85 24 158 S78 255 54 333 S22 448 48 508 S70 620 50 680" />
+        </svg>
+        <article class="process-step process-step--left" data-process-step data-reveal-stage><span class="process-step__number">۰۱</span><span class="process-step__orbit" aria-hidden="true">01</span><div class="process-step__copy"><p class="process-step__kicker">LISTEN FIRST</p><h3>گفت‌وگو و شناخت</h3><p>از خواسته‌ها، نگرانی‌ها و سابقهٔ مراقبتی شما می‌شنویم؛ بدون عجله برای انتخاب یک روش.</p></div></article>
+        <article class="process-step process-step--right" data-process-step data-reveal-stage><span class="process-step__number">۰۲</span><span class="process-step__orbit" aria-hidden="true">02</span><div class="process-step__copy"><p class="process-step__kicker">ASSESS WITH CARE</p><h3>ارزیابی تخصصی</h3><p>پزشک شرایط فردی، پوست یا موی شما و مواردی را که لازم است پیش از تصمیم بررسی شوند، ارزیابی می‌کند.</p></div></article>
+        <article class="process-step process-step--left" data-process-step data-reveal-stage><span class="process-step__number">۰۳</span><span class="process-step__orbit" aria-hidden="true">03</span><div class="process-step__copy"><p class="process-step__kicker">A PLAN THAT FITS</p><h3>برنامهٔ متناسب با شما</h3><p>دربارهٔ گزینه‌ها، محدودیت‌ها، هزینه‌ها و مراقبت‌های لازم صحبت می‌کنیم تا تصمیمی آگاهانه بگیرید.</p></div></article>
+        <article class="process-step process-step--right" data-process-step data-reveal-stage><span class="process-step__number">۰۴</span><span class="process-step__orbit" aria-hidden="true">04</span><div class="process-step__copy"><p class="process-step__kicker">CARE BEYOND THE VISIT</p><h3>مراقبت و پیگیری</h3><p>دستورهای پس از مراجعه و زمان مناسب پیگیری به شما توضیح داده می‌شود؛ پرسش‌ها بخشی از مسیر هستند.</p></div></article>
+      </div>
+      <div class="wrap process-section__foot"><span>AROUN / YOUR CARE JOURNEY</span><span>اطلاع‌رسانی روشن، در هر مرحله</span></div>
+    </section>
+
+    <!-- تیم پزشکی -->
+    <section class="doctors-section" id="team" data-scene="doctors" aria-labelledby="doctorsTitle">
+      <div class="wrap">
+        <div class="section-headline section-headline--split">
+          <div data-reveal-stage><p class="eyebrow"><span class="eyebrow__dash"></span> KNOW THE PEOPLE BEHIND THE CARE</p><h2 class="stage3-title" id="doctorsTitle">دانش تخصصی،<br><em>نگاهی انسانی.</em></h2></div>
+          <p data-reveal-stage>اعتماد با معرفی روشن تخصص، گفت‌وگوی صادقانه و احترام به انتخاب هر فرد شکل می‌گیرد.</p>
+        </div>
+        <div class="doctor-grid">
+          <article class="doctor-card doctor-card--sara" data-doctor-card data-reveal-stage><div class="doctor-card__portrait" data-photo="assets/images/doctor-sara.jpg" role="img" aria-label="جایگاه تصویر پرترهٔ دکتر سارا کیانی"><span class="doctor-card__initials" aria-hidden="true">س.ک</span><span class="doctor-card__photo-note">PORTRAIT / 01</span><span class="doctor-card__orbit" aria-hidden="true"></span></div><div class="doctor-card__body"><span class="doctor-card__index">01 — DERMATOLOGY</span><h3>دکتر سارا کیانی</h3><p class="doctor-card__role">متخصص پوست و زیبایی</p><p class="doctor-card__description">تمرکز بر سلامت پوست، ارزیابی دقیق نیازها و طراحی مسیر مراقبتی متناسب با شرایط هر مراجعه‌کننده.</p><a href="#booking" class="doctor-card__link" data-cursor="رزرو">درخواست مشاوره <span aria-hidden="true">↙</span></a></div></article>
+          <article class="doctor-card doctor-card--amir" data-doctor-card data-reveal-stage><div class="doctor-card__portrait" data-photo="assets/images/doctor-amir.jpg" role="img" aria-label="جایگاه تصویر پرترهٔ دکتر امیر رادمهر"><span class="doctor-card__initials" aria-hidden="true">ا.ر</span><span class="doctor-card__photo-note">PORTRAIT / 02</span><span class="doctor-card__orbit" aria-hidden="true"></span></div><div class="doctor-card__body"><span class="doctor-card__index">02 — LASER & LIFTING</span><h3>دکتر امیر رادمهر</h3><p class="doctor-card__role">متخصص لیزر و لیفتینگ</p><p class="doctor-card__description">بررسی شرایط پوست و انتخاب آگاهانهٔ گزینه‌های مبتنی بر لیزر و روش‌های غیرجراحی، متناسب با ارزیابی پزشک.</p><a href="#booking" class="doctor-card__link" data-cursor="رزرو">درخواست مشاوره <span aria-hidden="true">↙</span></a></div></article>
+          <article class="doctor-card doctor-card--niloufar" data-doctor-card data-reveal-stage><div class="doctor-card__portrait" data-photo="assets/images/doctor-niloufar.jpg" role="img" aria-label="جایگاه تصویر پرترهٔ دکتر نیلوفر صدری"><span class="doctor-card__initials" aria-hidden="true">ن.ص</span><span class="doctor-card__photo-note">PORTRAIT / 03</span><span class="doctor-card__orbit" aria-hidden="true"></span></div><div class="doctor-card__body"><span class="doctor-card__index">03 — HAIR RESTORATION</span><h3>دکتر نیلوفر صدری</h3><p class="doctor-card__role">متخصص مو</p><p class="doctor-card__description">ارزیابی وضعیت مو و پوست سر، بررسی سابقهٔ ریزش و گفت‌وگو دربارهٔ گزینه‌های موجود و محدودیت‌های آن‌ها.</p><a href="#booking" class="doctor-card__link" data-cursor="رزرو">درخواست مشاوره <span aria-hidden="true">↙</span></a></div></article>
+        </div>
+        <p class="stage3-disclaimer">نام‌ها و معرفی‌های این نسخه فرضی‌اند؛ پیش از انتشار عمومی، اطلاعات حرفه‌ای و مجوزهای پزشکان باید تأیید شوند.</p>
+      </div>
+    </section>
+
+    <!-- آمار -->
+    <section class="stats-section" id="stats" data-scene="stats" aria-labelledby="statsTitle">
+      <div class="stats-section__glow" aria-hidden="true"></div>
+      <div class="wrap stats-section__inner">
+        <div class="stats-section__intro" data-reveal-stage><p class="eyebrow"><span class="eyebrow__dash"></span> A JOURNEY BUILT ON TRUST</p><h2 id="statsTitle">اعتماد، در طول زمان<br><em>ساخته می‌شود.</em></h2><p>هر عدد، در صورت تأیید، باید پشتوانه‌ای واقعی داشته باشد؛ کیفیت مراقبت را نمی‌توان فقط با عدد سنجید.</p></div>
+        <div class="stats-grid">
+          <article class="stat-item" data-reveal-stage><span class="stat-item__index">01</span><strong class="stat-item__value"><span data-counter="12">۰</span><i>+</i></strong><span class="stat-item__label">سال تجربه</span><span class="stat-item__rule" aria-hidden="true"></span></article>
+          <article class="stat-item" data-reveal-stage><span class="stat-item__index">02</span><strong class="stat-item__value"><span data-counter="20000">۰</span><i>+</i></strong><span class="stat-item__label">مراجع</span><span class="stat-item__rule" aria-hidden="true"></span></article>
+          <article class="stat-item" data-reveal-stage><span class="stat-item__index">03</span><strong class="stat-item__value"><span data-counter="50000">۰</span><i>+</i></strong><span class="stat-item__label">جلسهٔ درمان</span><span class="stat-item__rule" aria-hidden="true"></span></article>
+        </div>
+        <p class="stats-section__note">آمار این طرح، دادهٔ نمونه است و قبل از انتشار باید با اطلاعات تأییدشدهٔ کلینیک جایگزین شود.</p>
+      </div>
+    </section>
+
+    <!-- گالری فضای کلینیک -->
+    <section class="gallery-section" id="gallery" data-scene="gallery" aria-labelledby="galleryTitle">
+      <div class="wrap">
+        <div class="section-headline section-headline--split"><div data-reveal-stage><p class="eyebrow"><span class="eyebrow__dash"></span> SPACE / MATERIAL / LIGHT</p><h2 class="stage3-title" id="galleryTitle">فضایی برای<br><em>آرام‌تر نفس کشیدن.</em></h2></div><p data-reveal-stage>نور طبیعی، متریال‌های آرام و جزئیات سنجیده؛ فضایی که قرار است تجربهٔ مراجعه را دلنشین‌تر کند.</p></div>
+        <div class="clinic-gallery">
+          <button class="gallery-tile gallery-tile--large" type="button" data-gallery-open data-photo="assets/images/clinic-reception.jpg" data-gallery-caption="ورود آرام؛ پذیرش کلینیک آرون" data-cursor="ببین" aria-label="نمایش تصویر پذیرش کلینیک"><span class="gallery-tile__art gallery-tile__art--reception" aria-hidden="true"></span><span class="gallery-tile__meta"><span>01 / ARRIVAL</span><strong>ورود آرام</strong><i aria-hidden="true">↗</i></span></button>
+          <button class="gallery-tile gallery-tile--tall" type="button" data-gallery-open data-photo="assets/images/clinic-room.jpg" data-gallery-caption="اتاق مشاوره با نور نرم" data-cursor="ببین" aria-label="نمایش تصویر اتاق مشاوره"><span class="gallery-tile__art gallery-tile__art--room" aria-hidden="true"></span><span class="gallery-tile__meta"><span>02 / CONSULTATION</span><strong>گفت‌وگو، بدون عجله</strong><i aria-hidden="true">↗</i></span></button>
+          <button class="gallery-tile gallery-tile--wide" type="button" data-gallery-open data-photo="assets/images/clinic-detail.jpg" data-gallery-caption="جزئیاتی از متریال و نور" data-cursor="ببین" aria-label="نمایش تصویر جزئیات طراحی داخلی"><span class="gallery-tile__art gallery-tile__art--detail" aria-hidden="true"></span><span class="gallery-tile__meta"><span>03 / MATERIAL STUDY</span><strong>زیبایی در جزئیات</strong><i aria-hidden="true">↗</i></span></button>
+          <button class="gallery-tile gallery-tile--small" type="button" data-gallery-open data-photo="assets/images/clinic-treatment.jpg" data-gallery-caption="جایگاه تصویر اتاق درمان" data-cursor="ببین" aria-label="نمایش تصویر اتاق درمان"><span class="gallery-tile__art gallery-tile__art--treatment" aria-hidden="true"></span><span class="gallery-tile__meta"><span>04 / CARE</span><strong>مراقبت دقیق</strong><i aria-hidden="true">↗</i></span></button>
+          <button class="gallery-tile gallery-tile--small gallery-tile--last" type="button" data-gallery-open data-photo="assets/images/clinic-light.jpg" data-gallery-caption="نور عصر در فضای آرون" data-cursor="ببین" aria-label="نمایش تصویر نور و فضای کلینیک"><span class="gallery-tile__art gallery-tile__art--light" aria-hidden="true"></span><span class="gallery-tile__meta"><span>05 / LIGHT STUDY</span><strong>هنرِ نور</strong><i aria-hidden="true">↗</i></span></button>
+        </div>
+        <p class="stage3-disclaimer">تصویرسازی‌ها تا زمان افزودن عکس‌های واقعی، گرادیان‌های نمایشی هستند و لزوماً فضای واقعی کلینیک را نشان نمی‌دهند.</p>
+      </div>
+    </section>
+
+    <dialog class="gallery-lightbox" id="galleryLightbox" aria-label="نمایش بزرگ تصویر گالری">
+      <div class="gallery-lightbox__topline"><span>AROUN / SPACE JOURNAL</span><button type="button" id="galleryLightboxClose" aria-label="بستن تصویر">×</button></div>
+      <div class="gallery-lightbox__stage" id="galleryLightboxStage"><img id="galleryLightboxImage" alt="" hidden><span class="gallery-lightbox__placeholder" id="galleryLightboxPlaceholder">THE ART OF LIGHT</span></div>
+      <p class="gallery-lightbox__caption" id="galleryLightboxCaption"></p>
+    </dialog>
+
+    <!-- نظرات نمونه؛ با بازخوردهای تأییدشده جایگزین شوند -->
+    <section class="testimonials-section" id="testimonials" data-scene="testimonials" aria-labelledby="testimonialsTitle">
+      <div class="wrap">
+        <div class="testimonials-head" data-reveal-stage><div><p class="eyebrow"><span class="eyebrow__dash"></span> WORDS THAT MATTER</p><h2 class="stage3-title" id="testimonialsTitle">اعتماد، از تجربه<br><em>روایت می‌شود.</em></h2></div><div class="testimonial-controls"><button type="button" id="testimonialPrev" class="testimonial-arrow" aria-label="نظر قبلی">→</button><button type="button" id="testimonialNext" class="testimonial-arrow" aria-label="نظر بعدی">←</button></div></div>
+        <div class="testimonial-slider" id="testimonialSlider" aria-roledescription="اسلایدر نظرات"><div class="testimonial-track" id="testimonialTrack">
+          <article class="testimonial-card is-active" data-testimonial><span class="testimonial-card__quote" aria-hidden="true">“</span><p class="testimonial-card__eyebrow">A MOMENT OF CLARITY</p><blockquote>«برایم مهم بود قبل از هر تصمیمی، همه‌چیز واضح توضیح داده شود. گفت‌وگو کمک کرد بدانم چه انتظاری واقع‌بینانه است و چه پرسش‌هایی باید بپرسم.»</blockquote><div class="testimonial-card__person"><span class="testimonial-avatar">م</span><span><strong>مریم</strong><small>متن نمونه برای طراحی</small></span><span class="testimonial-card__index">01 / 03</span></div></article>
+          <article class="testimonial-card" data-testimonial><span class="testimonial-card__quote" aria-hidden="true">“</span><p class="testimonial-card__eyebrow">CARE WITH ATTENTION</p><blockquote>«فضا آرام بود و احساس نکردم باید عجله کنم. فرصت داشتم دربارهٔ روند مراقبت و محدودیت‌های هر گزینه سؤال بپرسم.»</blockquote><div class="testimonial-card__person"><span class="testimonial-avatar testimonial-avatar--rose">ن</span><span><strong>نگین</strong><small>متن نمونه برای طراحی</small></span><span class="testimonial-card__index">02 / 03</span></div></article>
+          <article class="testimonial-card" data-testimonial><span class="testimonial-card__quote" aria-hidden="true">“</span><p class="testimonial-card__eyebrow">A PERSONAL APPROACH</p><blockquote>«اینکه دربارهٔ نیازهای من صحبت شد، نه فقط یک روش از پیش تعیین‌شده، برایم مهم بود. تصمیم نهایی را با شناخت بیشتری گرفتم.»</blockquote><div class="testimonial-card__person"><span class="testimonial-avatar testimonial-avatar--sand">س</span><span><strong>سحر</strong><small>متن نمونه برای طراحی</small></span><span class="testimonial-card__index">03 / 03</span></div></article>
+        </div></div>
+        <div class="testimonial-pagination" id="testimonialPagination" aria-label="انتخاب نظر"><button type="button" aria-label="نظر اول" aria-current="true"></button><button type="button" aria-label="نظر دوم"></button><button type="button" aria-label="نظر سوم"></button></div>
+        <p class="stage3-disclaimer">متن‌های این بخش فقط نمونهٔ طراحی هستند و نباید به‌عنوان نظر واقعی مراجعین منتشر شوند.</p>
+      </div>
+    </section>
+
+    <!-- سوالات متداول؛ با عناصر بومی و قابل استفاده با صفحه‌کلید -->
+    <section class="faq-section" id="faq" data-scene="faq" aria-labelledby="faqTitle">
+      <div class="wrap faq-layout">
+        <div class="faq-intro" data-reveal-stage><p class="eyebrow"><span class="eyebrow__dash"></span> QUESTIONS, ANSWERED WITH CARE</p><h2 class="stage3-title" id="faqTitle">پیش از تصمیم،<br><em>با خیال روشن.</em></h2><p>اگر سؤال دیگری دارید، تیم آرون می‌تواند برای هماهنگی مشاوره راهنمایی‌تان کند.</p><a class="faq-contact-link" href="tel:+982188888888">تماس با کلینیک <span aria-hidden="true">↗</span></a></div>
+        <div class="faq-list" data-reveal-stage>
+          <details class="faq-item"><summary><span>برای اولین مراجعه چه چیزی لازم است؟</span><i aria-hidden="true"></i></summary><div class="faq-item__answer"><p>کافی است هنگام رزرو، موضوع موردنظر را مشخص کنید. اگر سابقهٔ پزشکی مهم، داروی مصرفی یا اطلاعات مراقبتی مرتبط دارید، آن را برای گفت‌وگو با پزشک آماده کنید.</p></div></details>
+          <details class="faq-item"><summary><span>آیا می‌توانم پیش از انتخاب درمان مشاوره بگیرم؟</span><i aria-hidden="true"></i></summary><div class="faq-item__answer"><p>بله؛ هدف جلسهٔ مشاوره، بررسی شرایط و صحبت دربارهٔ گزینه‌ها، مزایا، محدودیت‌ها و مراقبت‌های لازم است. هیچ روش مشخصی برای همه مناسب نیست.</p></div></details>
+          <details class="faq-item"><summary><span>آیا نتیجهٔ درمان برای همه یکسان است؟</span><i aria-hidden="true"></i></summary><div class="faq-item__answer"><p>خیر. نتیجه به شرایط فردی، نوع روش، وضعیت سلامت و مراقبت‌های پس از آن بستگی دارد و پزشک دربارهٔ انتظارات واقع‌بینانه توضیح می‌دهد.</p></div></details>
+          <details class="faq-item"><summary><span>چطور زمان مشاوره را تغییر بدهم؟</span><i aria-hidden="true"></i></summary><div class="faq-item__answer"><p>با شمارهٔ کلینیک تماس بگیرید تا درخواست تغییر زمان بررسی شود. فرم این صفحه در حال حاضر نمایشی است و به سامانهٔ رزرو متصل نیست.</p></div></details>
+          <details class="faq-item"><summary><span>آیا فرم این صفحه نوبت قطعی ثبت می‌کند؟</span><i aria-hidden="true"></i></summary><div class="faq-item__answer"><p>در این نسخه خیر؛ فرم فقط نمایش و اعتبارسنجی سمت مرورگر را انجام می‌دهد. برای ثبت واقعی، لازم است به سامانهٔ رزرو یا سرویس پیام‌رسان مورداعتماد متصل شود.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- رزرو چندمرحله‌ای؛ این نسخه به بک‌اند متصل نیست -->
+    <section class="booking-section" id="booking" data-scene="booking" aria-labelledby="bookingTitle">
+      <div class="booking-section__glow" aria-hidden="true"></div>
+      <div class="wrap booking-layout">
+        <div class="booking-intro" data-reveal-stage><p class="eyebrow"><span class="eyebrow__dash"></span> BEGIN WITH A CONVERSATION</p><h2 class="stage3-title" id="bookingTitle">برای خودت،<br><em>کمی وقت بگذار.</em></h2><p>اولین قدم، یک گفت‌وگوی دقیق است. موضوع موردنظرت را انتخاب کن تا درخواست مشاوره را در این نسخهٔ نمایشی تکمیل کنیم.</p><div class="booking-contact-card"><span class="booking-contact-card__label">DIRECT LINE</span><a href="tel:+982188888888">۰۲۱-۸۸۸۸۸۸۸۸</a><span>شنبه تا چهارشنبه ۹ تا ۲۰<br>پنجشنبه ۹ تا ۱۴</span></div></div>
+
+        <div class="booking-panel" data-reveal-stage>
+          <div class="booking-panel__top"><span>AROUN / PRIVATE CONSULTATION</span><span id="bookingStepLabel">مرحلهٔ ۱ از ۳</span></div>
+          <div class="booking-progress" aria-hidden="true"><span id="bookingProgressBar"></span></div>
+          <form id="bookingForm" class="booking-form" novalidate>
+            <input type="hidden" name="service" id="bookingServiceValue" value="">
+            <div class="booking-step" data-booking-step="1">
+              <p class="booking-step__eyebrow">STEP 01</p><h3>موضوع مشاوره را انتخاب کنید.</h3><p class="booking-step__note">این انتخاب اولیه است؛ امکان بررسی گزینه‌های دیگر در جلسه وجود دارد.</p>
+              <div class="booking-service-grid" id="bookingServiceChoices">
+                <button type="button" class="booking-service-choice" data-booking-service="مراقبت و جوانسازی پوست" aria-pressed="false"><span>01</span><strong>مراقبت و جوانسازی پوست</strong><i>↙</i></button>
+                <button type="button" class="booking-service-choice" data-booking-service="لیزر موهای زائد" aria-pressed="false"><span>02</span><strong>لیزر موهای زائد</strong><i>↙</i></button>
+                <button type="button" class="booking-service-choice" data-booking-service="فیلر و بوتاکس" aria-pressed="false"><span>03</span><strong>فیلر و بوتاکس</strong><i>↙</i></button>
+                <button type="button" class="booking-service-choice" data-booking-service="مزوتراپی و PRP" aria-pressed="false"><span>04</span><strong>مزوتراپی و PRP</strong><i>↙</i></button>
+                <button type="button" class="booking-service-choice" data-booking-service="لیفتینگ بدون جراحی" aria-pressed="false"><span>05</span><strong>لیفتینگ بدون جراحی</strong><i>↙</i></button>
+                <button type="button" class="booking-service-choice" data-booking-service="کاشت و ترمیم مو" aria-pressed="false"><span>06</span><strong>کاشت و ترمیم مو</strong><i>↙</i></button>
+              </div>
+              <p class="booking-error" id="bookingServiceError" role="alert"></p>
+            </div>
+
+            <div class="booking-step" data-booking-step="2" hidden>
+              <p class="booking-step__eyebrow">STEP 02</p><h3>زمانی را برای گفت‌وگو در نظر بگیرید.</h3><p class="booking-step__note">انتخاب زمان به معنی رزرو قطعی نیست؛ هماهنگی نهایی باید توسط کلینیک تأیید شود.</p>
+              <div class="booking-fields booking-fields--two"><label class="booking-field"><span>تاریخ پیشنهادی</span><input type="date" name="date" id="bookingDate" required><small class="booking-error" data-field-error="date"></small></label><label class="booking-field"><span>بازهٔ زمانی</span><select name="time" id="bookingTime" required><option value="">انتخاب کنید</option><option value="09:00 تا 12:00">۹ تا ۱۲</option><option value="12:00 تا 16:00">۱۲ تا ۱۶</option><option value="16:00 تا 20:00">۱۶ تا ۲۰</option></select><small class="booking-error" data-field-error="time"></small></label></div>
+              <p class="booking-step__hint">ساعات پذیرش: شنبه تا چهارشنبه ۹ تا ۲۰، پنجشنبه ۹ تا ۱۴؛ جمعه تعطیل.</p>
+            </div>
+
+            <div class="booking-step" data-booking-step="3" hidden>
+              <p class="booking-step__eyebrow">STEP 03</p><h3>چطور با شما در تماس باشیم؟</h3><p class="booking-step__note">اطلاعات را برای پیش‌نمایش درخواست وارد کنید؛ این صفحه چیزی را به سرور ارسال نمی‌کند.</p>
+              <div class="booking-fields"><label class="booking-field"><span>نام و نام خانوادگی</span><input type="text" name="fullName" id="bookingName" autocomplete="name" minlength="2" maxlength="90" required placeholder="نام شما"><small class="booking-error" data-field-error="fullName"></small></label><label class="booking-field"><span>شمارهٔ موبایل</span><input type="tel" name="phone" id="bookingPhone" autocomplete="tel" inputmode="tel" required placeholder="۰۹۱۲۱۲۳۴۵۶۷"><small class="booking-error" data-field-error="phone"></small></label><label class="booking-field"><span>ایمیل (اختیاری)</span><input type="email" name="email" id="bookingEmail" autocomplete="email" placeholder="name@example.com"><small class="booking-error" data-field-error="email"></small></label></div>
+              <label class="booking-consent"><input type="checkbox" name="consent" id="bookingConsent" required><span>می‌دانم این فرم نمایشی است و درخواست من تا اتصال به سامانهٔ واقعی ارسال نمی‌شود.</span></label><small class="booking-error" data-field-error="consent"></small>
+            </div>
+
+            <div class="booking-form__actions"><button type="button" class="booking-back" id="bookingBack" hidden>مرحلهٔ قبل</button><button type="button" class="booking-next" id="bookingNext">ادامه <span aria-hidden="true">←</span></button><button type="submit" class="booking-submit" id="bookingSubmit" hidden>نمایش خلاصهٔ درخواست <span aria-hidden="true">↗</span></button></div>
+            <p class="booking-form__message" id="bookingMessage" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="booking-success" id="bookingSuccess" hidden role="status" aria-live="polite"><span class="booking-success__symbol" aria-hidden="true">✓</span><p class="booking-success__eyebrow">REQUEST PREVIEW</p><h3>خلاصهٔ درخواست آماده است.</h3><p id="bookingSummary"></p><p class="booking-success__notice">این فقط پیش‌نمایش محلی است؛ نوبت ثبت نشده و لازم است برای هماهنگی واقعی با کلینیک تماس بگیرید.</p><a href="tel:+982188888888" class="booking-submit booking-success__call">تماس با آرون <span aria-hidden="true">↗</span></a><button type="button" id="bookingReset" class="booking-reset">ساخت درخواست جدید</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- فوتر نهایی -->
+    <footer class="aroun-footer" id="footer">
+      <div class="aroun-footer__top wrap"><div class="aroun-footer__brand"><a href="#top" class="brand brand--footer" aria-label="بازگشت به آغاز آرون"><span class="brand__monogram" aria-hidden="true">آ</span><span class="brand__wordmark"><strong>آرون</strong><small>AROUN AESTHETIC CLINIC</small></span></a><p>زیبایی، هنرِ نور است؛ نگاهی آرام، تصمیمی آگاهانه و مراقبتی که با شناخت آغاز می‌شود.</p><span class="aroun-footer__signature">A quieter kind of luxury.</span></div>
+        <div class="aroun-footer__column"><h2>کاوش در آرون</h2><a href="#process">فرایند مراجعه</a><a href="#services">خدمات</a><a href="#process">فرایند مراجعه</a><a href="#team">پزشکان</a><a href="#gallery">فضای کلینیک</a></div>
+        <div class="aroun-footer__column"><h2>برای شروع</h2><a href="#treatment">شناخت نیازها</a><a href="#comparison">مقایسهٔ تصویری</a><a href="#faq">پرسش‌های متداول</a><a href="#booking">رزرو مشاوره</a><a href="https://instagram.com/aroun.clinic" target="_blank" rel="noopener noreferrer">اینستاگرام ↗</a></div>
+        <div class="aroun-footer__contact"><h2>در ارتباط باشیم</h2><a href="tel:+982188888888" class="aroun-footer__phone">۰۲۱-۸۸۸۸۸۸۸۸ <span>↗</span></a><a href="https://wa.me/989120000000" target="_blank" rel="noopener noreferrer">واتساپ: ۰۹۱۲۰۰۰۰۰۰۰</a><a href="mailto:info@aroun-clinic.ir">info@aroun-clinic.ir</a><address>تهران، خیابان ولیعصر،<br>بالاتر از پارک ساعی، پلاک ۱۲۴، طبقهٔ ۳</address><p class="aroun-footer__hours">شنبه تا چهارشنبه: ۹ تا ۲۰<br>پنجشنبه: ۹ تا ۱۴ · جمعه: تعطیل</p></div>
+      </div>
+      <div class="aroun-footer__closing wrap"><span class="aroun-footer__bigword" aria-hidden="true">AROUN</span><div class="aroun-footer__bottom"><span>© <span id="footerYear">۱۴۰۵</span> آرون — تمامی حقوق محفوظ است.</span><span>اطلاعات تماس و خدمات پیش از انتشار نهایی بررسی شوند.</span><a href="#top">بازگشت به بالا ↑</a></div></div>
+    </footer>
+
+  </main>
+
+
+  <a class="contact-orbit" href="https://wa.me/989120000000" target="_blank" rel="noopener noreferrer" aria-label="ارتباط با آرون از طریق واتساپ" data-cursor="پیام">
+    <span class="contact-orbit__dot" aria-hidden="true"></span><span>گفت‌وگو با آرون</span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 19.5l1.1-4A8 8 0 1 1 20 11.5Z"/><path d="M9 9c.5 2.2 1.8 3.5 4 4.2"/></svg>
+  </a>
+</body>
+</html>
